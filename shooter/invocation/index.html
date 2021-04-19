@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>调用链根源定位 | AIOps 智能运维算法</title>
+    <meta name="generator" content="VuePress 1.8.2">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/2.10.0/github-markdown.min.css">
+    <meta name="description" content="专注于智能运维领域的算法分享和实践">
+    
+    <link rel="preload" href="/aiops/assets/css/0.styles.dedf790c.css" as="style"><link rel="preload" href="/aiops/assets/js/app.fa3989a2.js" as="script"><link rel="preload" href="/aiops/assets/js/2.23582247.js" as="script"><link rel="preload" href="/aiops/assets/js/17.6f35c5d7.js" as="script"><link rel="prefetch" href="/aiops/assets/js/10.26620489.js"><link rel="prefetch" href="/aiops/assets/js/11.7654445e.js"><link rel="prefetch" href="/aiops/assets/js/12.1d403ee4.js"><link rel="prefetch" href="/aiops/assets/js/13.56b9bca7.js"><link rel="prefetch" href="/aiops/assets/js/14.6b4220a2.js"><link rel="prefetch" href="/aiops/assets/js/15.1b748473.js"><link rel="prefetch" href="/aiops/assets/js/16.9971be33.js"><link rel="prefetch" href="/aiops/assets/js/18.b1dec5e5.js"><link rel="prefetch" href="/aiops/assets/js/19.9557e75b.js"><link rel="prefetch" href="/aiops/assets/js/3.e959ad76.js"><link rel="prefetch" href="/aiops/assets/js/4.b49397ec.js"><link rel="prefetch" href="/aiops/assets/js/5.e1ba7309.js"><link rel="prefetch" href="/aiops/assets/js/6.58cfe580.js"><link rel="prefetch" href="/aiops/assets/js/7.e0adecc2.js"><link rel="prefetch" href="/aiops/assets/js/8.273d3367.js"><link rel="prefetch" href="/aiops/assets/js/9.e5d1303a.js">
+    <link rel="stylesheet" href="/aiops/assets/css/0.styles.dedf790c.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/aiops/" class="home-link router-link-active"><img src="https://cdn.jsdelivr.net/gh/dreamhomes/blog-image-bed@master/top/dreamhomes/butterflyblog/imgs/20210404130758.png" alt="AIOps 智能运维算法" class="logo"> <span class="site-name can-hide">AIOps 智能运维算法</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/aiops/" class="nav-link">
+  主页
+</a></div><div class="nav-item"><a href="/aiops/aiops-background/" class="nav-link">
+  AIOps 背景
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Anomaly" class="dropdown-title"><span class="title">故障预警</span> <span class="arrow down"></span></button> <button type="button" aria-label="Anomaly" class="mobile-dropdown-title"><span class="title">故障预警</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/aiops/anomaly/kpis/" class="nav-link">
+  业务指标异常检测
+</a></li><li class="dropdown-item"><!----> <a href="/aiops/anomaly/log/" class="nav-link">
+  日志异常检测
+</a></li><li class="dropdown-item"><!----> <a href="/aiops/anomaly/trend/" class="nav-link">
+  指标趋势预测
+</a></li><li class="dropdown-item"><!----> <a href="/aiops/anomaly/batch/" class="nav-link">
+  批处理异常检测
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Shooter" class="dropdown-title"><span class="title">故障定位</span> <span class="arrow down"></span></button> <button type="button" aria-label="Shooter" class="mobile-dropdown-title"><span class="title">故障定位</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/aiops/shooter/machine/" class="nav-link">
+  机器指标定位
+</a></li><li class="dropdown-item"><!----> <a href="/aiops/shooter/multidimension/" class="nav-link">
+  业务明细多维定位
+</a></li><li class="dropdown-item"><!----> <a href="/aiops/shooter/invocation/" aria-current="page" class="nav-link router-link-exact-active router-link-active">
+  调用链根源定位
+</a></li></ul></div></div><div class="nav-item"><a href="https://dreamhomes.top/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  关于
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/aiops/" class="nav-link">
+  主页
+</a></div><div class="nav-item"><a href="/aiops/aiops-background/" class="nav-link">
+  AIOps 背景
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Anomaly" class="dropdown-title"><span class="title">故障预警</span> <span class="arrow down"></span></button> <button type="button" aria-label="Anomaly" class="mobile-dropdown-title"><span class="title">故障预警</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/aiops/anomaly/kpis/" class="nav-link">
+  业务指标异常检测
+</a></li><li class="dropdown-item"><!----> <a href="/aiops/anomaly/log/" class="nav-link">
+  日志异常检测
+</a></li><li class="dropdown-item"><!----> <a href="/aiops/anomaly/trend/" class="nav-link">
+  指标趋势预测
+</a></li><li class="dropdown-item"><!----> <a href="/aiops/anomaly/batch/" class="nav-link">
+  批处理异常检测
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Shooter" class="dropdown-title"><span class="title">故障定位</span> <span class="arrow down"></span></button> <button type="button" aria-label="Shooter" class="mobile-dropdown-title"><span class="title">故障定位</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/aiops/shooter/machine/" class="nav-link">
+  机器指标定位
+</a></li><li class="dropdown-item"><!----> <a href="/aiops/shooter/multidimension/" class="nav-link">
+  业务明细多维定位
+</a></li><li class="dropdown-item"><!----> <a href="/aiops/shooter/invocation/" aria-current="page" class="nav-link router-link-exact-active router-link-active">
+  调用链根源定位
+</a></li></ul></div></div><div class="nav-item"><a href="https://dreamhomes.top/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  关于
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div> <!----></nav>  <ul class="sidebar-links"><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>业务指标异常检测</span> <span class="arrow right"></span></p> <!----></section></li><li><a href="/aiops/anomaly/log.html" class="sidebar-link">日志异常检测</a></li><li><a href="/aiops/anomaly/batch.html" class="sidebar-link">批处理异常检测</a></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading open"><span>故障定位</span> <span class="arrow down"></span></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/aiops/shooter/machine/" class="sidebar-link">机器指标定位</a></li><li><a href="/aiops/shooter/multidimension/" class="sidebar-link">业务明细多维定位</a></li><li><a href="/aiops/shooter/invocation/" aria-current="page" class="active sidebar-link">调用链根源定位</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/aiops/shooter/invocation/#实验数据集" class="sidebar-link">实验数据集</a></li></ul></li></ul></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="调用链根源定位"><a href="#调用链根源定位" class="header-anchor">#</a> 调用链根源定位</h1> <h2 id="实验数据集"><a href="#实验数据集" class="header-anchor">#</a> 实验数据集</h2> <ul><li>复旦大学的火车订票系统 train-ticket：<a href="https://github.com/FudanSELab/train-ticket/" target="_blank" rel="noopener noreferrer">https://github.com/FudanSELab/train-ticket/<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li> <li>开源的交易跟踪系统 jaeger：<a href="https://www.jaegertracing.io/" target="_blank" rel="noopener noreferrer">https://www.jaegertracing.io/<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li> <li>Google 开源的微服务测试平台 Online Boutique：<a href="https://github.com/GoogleCloudPlatform/microservices-demo" target="_blank" rel="noopener noreferrer">https://github.com/GoogleCloudPlatform/microservices-demo<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li> <li>清华大学裴丹老师主办的 AIOps 智能运维竞赛 <a href="http://iops.ai/competition_detail/?competition_id=15&amp;flag=1" target="_blank" rel="noopener noreferrer">微服务应用系统故障发现和根因定位<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li></ul></div> <footer class="page-edit"><!----> <div class="last-updated"><span class="prefix">上次更新:</span> <span class="time">4/7/2021, 8:23:11 PM</span></div></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/aiops/shooter/multidimension/" class="prev">
+        业务明细多维定位
+      </a></span> <!----></p></div> </main></div><div class="global-ui"><!----></div></div>
+    <script src="/aiops/assets/js/app.fa3989a2.js" defer></script><script src="/aiops/assets/js/2.23582247.js" defer></script><script src="/aiops/assets/js/17.6f35c5d7.js" defer></script>
+  </body>
+</html>
